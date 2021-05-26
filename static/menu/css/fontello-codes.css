@@ -1,0 +1,5 @@
+
+.icon-close-column:before { content: '\e800'; } /* '' */
+.icon-open-column:before { content: '\e801'; } /* '' */
+.icon-label:before { content: '\e802'; } /* '' */
+.icon-artist:before { content: '\e803'; } /* '' */

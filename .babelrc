@@ -1,0 +1,25 @@
+{
+  "presets": [
+    ["@babel/preset-env", { "modules": false }],
+    "next/babel"
+  ],
+  "plugins": [
+    [
+      "module-resolver",
+      {
+        "root": ["./"],
+        "alias": {
+          "@root": "./",
+          "@lib": "./lib",
+          "@static": "./static",
+          "@components": "./components",
+          "@containers": "./containers",
+          "@config": "./config",
+          "@graphql": "./graphql",
+        }
+      }
+    ],
+    ["@babel/plugin-proposal-class-properties", { "loose": true }],
+    ["import-graphql"]
+  ]
+}

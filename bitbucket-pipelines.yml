@@ -1,0 +1,62 @@
+# Musicpeaks.com deployment pipeline
+# validate at https://bitbucket-pipelines.prod.public.atl-paas.net/validator
+# https://confluence.atlassian.com/bitbucket/configure-bitbucket-pipelines-yml-792298910.html#Configurebitbucket-pipelines.yml-ci_branches
+    #branches: '{develop, production, staging, deployworkflow}':
+
+
+options:
+  docker: true
+  size: 2x
+
+pipelines:
+  branches:
+    master:
+      - step:
+          name: Run nodejs tests master
+          script:
+            - echo 'master does nothing.  use a build branch instead'
+    '{development,production,staging}':
+      - step:
+          name: Run nodejs tests custom branch
+          image: node:8.11.4-alpine
+          caches:
+            - node
+          script:
+            # - apt-get install curl -y
+            # - curl -X POST -H "Content-type:\ application/json" --data '{"text":"Running tests"}' ${SLACK_WEBHOOK_URL}
+            - echo 'skip for now'
+            # build and test the Node app
+            # - unset NPM_CONFIG_USER
+            # - npm install --production
+            # - npm test
+            # - npm run build
+            # - curl -X POST -H "Content-type:\ application/json"  --data '{"text":"Tests complete"}' ${SLACK_WEBHOOK_URL}
+      - step:
+          name: Build docker image
+          image: atlassian/pipelines-awscli:latest
+          script:
+            - export ECS_TASK_FAMILY_NAME=${ECS_TASK_FAMILY_NAME_PREFIX}-${BITBUCKET_BRANCH}
+            - export ECS_SERVICE_NAME=${ECS_SERVICE_NAME_PREFIX}-${BITBUCKET_BRANCH}
+            - export REGISTRY_FULL_NAME=${AWS_REGISTRY_URL}:${BITBUCKET_BRANCH}-${BITBUCKET_BUILD_NUMBER}
+            # - curl -X POST -H "Content-type:\ application/json"  --data '{"text":"Building docker image"}' ${SLACK_WEBHOOK_URL}
+            - deploy/build-repo.sh
+            # - curl -X POST -H "Content-type:\ application/json"  --data '{"text":"Build complete"}' ${SLACK_WEBHOOK_URL}
+      - step:
+          name: Update ECS task and service
+          image: node:8.11.4-alpine
+          caches:
+            - node
+          script:
+            - export ECS_TASK_FAMILY_NAME=${ECS_TASK_FAMILY_NAME_PREFIX}-${BITBUCKET_BRANCH}
+            - export ECS_SERVICE_NAME=${ECS_SERVICE_NAME_PREFIX}-${BITBUCKET_BRANCH}
+            - export REGISTRY_FULL_NAME=${AWS_REGISTRY_URL}:${BITBUCKET_BRANCH}-${BITBUCKET_BUILD_NUMBER}
+            # - curl -X POST -H "Content-type:\ application/json"  --data '{"text":"Updating ECS - Creating task update"}' ${SLACK_WEBHOOK_URL}
+            - cd deploy
+            - npm install
+            - cd ..
+            - node deploy/index.js
+            # - curl -X POST -H "Content-type:\ application/json"  --data '{"text":"Updating ECS - Task update complete.  All done."}' ${SLACK_WEBHOOK_URL}
+definitions:
+  services:
+    docker:
+      memory: 4096

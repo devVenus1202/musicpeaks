@@ -1,0 +1,43 @@
+{
+    "executionRoleArn": "arn:aws:iam::016187473666:role/ecsTaskExecutionRole",
+    "containerDefinitions": [
+      {
+        "logConfiguration": {
+          "logDriver": "awslogs",
+          "options": {
+            "awslogs-group": "/ecs/musicpeaks-react-development",
+            "awslogs-region": "us-east-1",
+            "awslogs-stream-prefix": "ecs"
+          }
+        },
+        "portMappings": [
+          {
+            "hostPort": 3000,
+            "protocol": "tcp",
+            "containerPort": 3000
+          }
+        ],
+        "environment": [
+          {
+            "name": "GRAPHQL_TOKEN",
+            "value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6IjUwNTZkM2FjMzRjYWY2NjA1MTI1NWM4YTJlZDkxZmRlMmE5Nzc3NzU1Y2E0MmY1MDVlZDM1NjMxOWZkYTNlNTI5NGIyZDQxNzM5MTBjMzBlIn0.eyJhdWQiOiI5ZjdkNzRlYS05OGUxLTQwYjktODI2OS0yNjhmYzVlM2Q1ZGQiLCJqdGkiOiI1MDU2ZDNhYzM0Y2FmNjYwNTEyNTVjOGEyZWQ5MWZkZTJhOTc3Nzc1NWNhNDJmNTA1ZWQzNTYzMTlmZGEzZTUyOTRiMmQ0MTczOTEwYzMwZSIsImlhdCI6MTUzMzkxODkwOSwibmJmIjoxNTMzOTE4OTA5LCJleHAiOjE1NDI2MTg5MDksInN1YiI6IjEiLCJzY29wZXMiOlsiYXV0aGVudGljYXRlZCIsImFwaV91c2VyIl19.BbU8DlbuXOuUBK7o0xPpNrPfiN3jhPBE0asx3vXtJRpekVRBernBo4pXQQ7ZKBDq9xLpGJ_rNJJs7blHZEboXaN39iyPrsbuGfRJHxCiZq0P0Vyzx4niuZVNWXeWgoTLnxhs656gMeG_wm1sLvCfG6cnHfRzEWQFOa__RxReewDr47HMT2En7DGmyWMDxFzpkGtjnufi2IqVOoVMir_E8YSFCw6QRZi39m56835gPcJ0tceXjS1QpPtOS4MTp3y4Kiia1Nv8T8PygbVCwZan6daloh4rKxgfWx-qZ8ir0mlZd7CwS8ppfho0GzyuitbRIw4EszxiNdso5M_4PxSDbZZlL-7V0jude_FoZVggdMIQiH5RkEmTi_80_LYdw7mMENC7jc_QZrA6rU02JfrTJFl9CQq4-h02E228uC4bnnDoqr8pECdS73LR-_1mTgmRdExomxVVwPpWtq-ir6Rj6v71CoondDdoFUjUo8ctm-qkHEPK5SHOdUcj5VF3DhALu5MKxf3zfiGxYNv-n7QUJxnWupU3IjI9D5DLAfQKG0X0AnP9D_Sg_RBhBGID7tYyrnUsvqzH2n34kyFEymoUTCiMS1urGo8DcZ429oD_n_i3jlOsStbTh9BfevAAkoxC4HwJa0o_YSFAjG5MMdI_fyFn2yBbp0NwjC98EhH_zmA"
+          },
+          {
+            "name": "GRAPHQL_URI",
+            "value": "http://54.152.241.245/graphql"
+          }
+        ],
+        "image": "016187473666.dkr.ecr.us-east-1.amazonaws.com/musicpeaks-react:deployworkflow",
+        "name": "musicpeaks-react-development"
+      }
+    ],
+    "placementConstraints": [],
+    "memory": "1024",
+    "family": "musicpeaks-react-development",
+    "requiresCompatibilities": [
+      "FARGATE"
+    ],
+    "networkMode": "awsvpc",
+    "cpu": "256",
+    "volumes": []
+  }

@@ -1,0 +1,16 @@
+.idea
+.next
+.vscode
+.DS_Store
+node_modules
+.env
+storybook-static
+npm-debug.log
+deploy/test-env.sh
+deploy/node_modules
+tmp
+static/storybook
+coverage
+yarn-error.log
+__snapshots__
+
